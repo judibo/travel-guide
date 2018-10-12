@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'travelguide.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'USER': ('postgresql'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': ('bucketlist'),
+        'USER': ('postgres'),
         'PASSWORD': '8276',
     }
 }

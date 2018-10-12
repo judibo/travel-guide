@@ -4,6 +4,7 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Spot
 
 
 
@@ -50,3 +51,7 @@ def signup(request):
 def profile(request, username):
     user = User.objects.get(username=username)
     return render(request, 'profile.html',{'username': username})
+
+def spots_index(request):
+    spots = Spot.objects.all()
+    return render(request, 'cities/index.html', {'spots': spots})

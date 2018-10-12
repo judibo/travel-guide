@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="slide">
+    <h1>Rio de Janeiro</h1>
+    <p>Rio de Janeiro, Brazil</p>
+    <img src="https://picsum.photos/1200/300">
+</section>
+<section class="flex-container">
+    {% for spot in spots %}
+    <div class="col-3">
+        <img src="https://picsum.photos/220/220">
+        <h2>{{ spot.name }}</h2>
+        <p>{{ spot.details }}</p>
+    </div>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

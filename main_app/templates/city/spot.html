@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="spot">
+    <section class="spot-img">
+        <img src="https://placem.at/places?h=220&w=220">
+    </section>
+    <section class="spot-details">
+        <h1>{{ spot.name }}</h1>
+        <div>
+            <div>
+                <p>{{ spot.details }}</p>
+                <p>{{ city.name }}</p>                
+            </div>
+        </div>
+        <button class="btn"><a href="/bucketlist">Add to Bucketlist!</a></button>
+    </section>
+</section>
+{% endblock %}

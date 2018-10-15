@@ -4,9 +4,8 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Spot
-
-
+from .models import Spot, City, Bucketlist, BucketSpot
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def index(request):
@@ -54,4 +53,20 @@ def profile(request, username):
 
 def spots_index(request):
     spots = Spot.objects.all()
-    return render(request, 'cities/index.html', {'spots': spots})
+    city = City.objects.all()
+    return render(request, 'city/index.html', {'spots': spots}, {'city': city})
+
+def spots_detail(request, spot_id):
+    spot = Spot.objects.get(id=spot_id)
+    city = City.objects.all()
+    return render(request, 'city/spot.html', {'spot': spot})
+
+def bucketlist(request, bucketlist_id):
+    bucket = Bucketlist.objects.get(id=bucketlist_id)
+    city = City.objects.all()
+    return render(request, 'bucketlist.html', {'bucket': bucket}, {'city': city})
+
+class SpotCreate(CreateView):
+    model = Spot
+    fields = '__all__'
+    success_url = '/cities'

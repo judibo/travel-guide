@@ -9,14 +9,20 @@ header {
     color: white;
 }
 
-.slide h1 {
+.slide h1{
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
     opacity: 0.8;
     padding: 20px;
+    color: black;
+    font-size: 25px;
+    font-weight: 100;
+    width: 100%;
+}
+.slide img {
+    width: 100%;
 }
 
 ul {
@@ -30,25 +36,35 @@ li {
 .logo {
     float: left;
 }
+.logo img {
+    width: 50%;
+}
 
 .nav-bar {
     float: right;
 }
 
+.nav-bar a {
+    color: white
+}
+
 a {
     text-decoration: none;
-    color: white;
+    color: black;
 }
+
 .slide {
     position: relative;
     text-align: center;
     color: black;
 }
+
 .flex-container {
     text-align: center;
     font-size: 15px;
     padding-left: 20px;
 }
+
 .col-3 {
     margin: auto;
     padding-top: 10px;
@@ -56,11 +72,13 @@ a {
     display: inline-block;
     text-align: left;
 }
+
 .col-3 img:hover {
     opacity: 0.3;
     transition: .5s ease;
     background-color: black;
 }
+
 footer {
     position: fixed;
     background-color: black;
@@ -68,19 +86,51 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
 .login {
     text-align: center;
 }
+
 .signup {
     text-align: center;
 }
+
 .helptext, .signup li {
     display: none;
 }
+
 img {
     width: 90%;
 }
 
+.btn {
+    height: 100px;
+    text-align: center;
+}
+
+button {
+    border: 2px solid black;
+    height: 40px;
+    width: 200px;
+    font-size: 16px;
+}
+
+button:hover {
+   background-color: lightgray;
+}
+
+.spot {
+    display: flex;
+    width: 100%;
+}
+.spot-img img {
+    width: 300px;
+    display: inline-block;
+    padding: 20px;
+}
+.spot-details{
+    padding-left: 30px;
+}
 @media screen and (min-width: 540px) {
     .flex-container {
         display: flex;
@@ -96,10 +146,16 @@ img {
         text-align: left;
         margin: 0;
     }
+    .slide h1{
+        font-size: 40px;
+    }
 }
 
 @media screen and (min-width: 1080px) {
     .col-3 {
         width: 24%;
+    }
+    .slide h1{
+        font-size: 55px;
     }
 }

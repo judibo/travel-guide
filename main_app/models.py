@@ -8,10 +8,14 @@ class City(models.Model):
     language = models.CharField(max_length=100)
     currency = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 class Bucketlist(models.Model): 
     created_at = models.DateField(auto_now_add=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class Spot(models.Model):
     GENRES = (

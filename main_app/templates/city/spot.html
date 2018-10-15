@@ -9,10 +9,34 @@
         <div>
             <div>
                 <p>{{ spot.details }}</p>
-                <p>{{ city.name }}</p>                
+                <p>City: {{ city }}</p>                
             </div>
         </div>
         <button class="btn"><a href="/bucketlist">Add to Bucketlist!</a></button>
     </section>
 </section>
+{% for bucketspot in bucketspots %}
+<section class="flex-container">
+    <div class="col-3">
+    
+        <img src="https://i.imgur.com/X8xJ6w5.jpg">
+        <h3>{{ bucketspot.bucket.user.username }}</h3>
+    </div>
+    <div class="col-3">
+
+        <img src="https://i.imgur.com/X8xJ6w5.jpg">
+        <h3>{{ bucketspot.bucket.user.username }}</h3>
+    </div>
+    <div class="col-3">
+
+        <img src="https://i.imgur.com/X8xJ6w5.jpg">
+        <h3>{{ bucketspot.bucket.user.username }}</h3>
+    </div>
+    <div class="col-3">
+
+        <img src="https://i.imgur.com/X8xJ6w5.jpg">
+        <h3>{{ bucketspot.bucket.user.username }}</h3>
+    </div>
+</section>
+{% endfor%}
 {% endblock %}

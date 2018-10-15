@@ -47,26 +47,32 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
 
-def profile(request, username):
-    user = User.objects.get(username=username)
-    return render(request, 'profile.html',{'username': username})
+def city_index(request):
+    cities = City.objects.all()
+    return render(request, 'city/index.html', {'cities': cities})
 
-def spots_index(request):
+def city_detail(request, city_id):
+    city = City.objects.get(id=city_id)
     spots = Spot.objects.all()
-    city = City.objects.all()
-    return render(request, 'city/index.html', {'spots': spots}, {'city': city})
+    return render(request, 'city/detail.html', {'spots': spots}, {'city': city})
 
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
-    city = City.objects.all()
-    return render(request, 'city/spot.html', {'spot': spot})
+    bucketspots = spot.bucketspot_set.all()
+    city = spot.bucketspot_set.first().bucket.city.name 
+    return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspots': bucketspots})
 
 def bucketlist(request, bucketlist_id):
     bucket = Bucketlist.objects.get(id=bucketlist_id)
     city = City.objects.all()
     return render(request, 'bucketlist.html', {'bucket': bucket}, {'city': city})
 
+def profile(request, username):
+    user = User.objects.get(username=username)
+    bucketlists = Bucketlist.objects.filter(user=user)
+    return render(request, 'profile.html',{'username': username}, {'bucketlists': bucketlists})
+
 class SpotCreate(CreateView):
     model = Spot
     fields = '__all__'
-    success_url = '/cities'
+    success_url = '/city'

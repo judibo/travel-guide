@@ -4,4 +4,8 @@
 
 <h1>Hello, {{ username }}</h1>
 
+{% for bucketlist in bucketlists %}
+<h2>{{ bucketlist.city }}</h2>
+{% endfor %}
+
 {% endblock %}

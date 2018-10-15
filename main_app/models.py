@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 class City(models.Model):
@@ -16,6 +17,8 @@ class Bucketlist(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.city.name
 
 class Spot(models.Model):
     GENRES = (
@@ -29,6 +32,7 @@ class Spot(models.Model):
         choices=GENRES,
         default=GENRES[0][0]
     )
+
     def __str__(self):
         return self.name
 
@@ -36,3 +40,6 @@ class BucketSpot(models.Model):
     bucket = models.ForeignKey(Bucketlist, on_delete=models.CASCADE)
     spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
     done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.spot.name

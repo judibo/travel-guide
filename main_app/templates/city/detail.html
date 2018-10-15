@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="slide">
+    <h1>{{ city_id.name }}</h1>
+    <p>{{ city_id.state }}, {{ city_id.country }}</p>
+    <img src="https://picsum.photos/1200/300">
+</section>
+<section class="flex-container">
+    {% for spot in spots %}
+    <div class="col-3">
+        <a href="{% url 'spots_detail' spot.id %}"><img src="https://placem.at/places?h=220&w=220"></a>
+        <h2>{{ spot.name }}</h2>
+        <p>{{ spot.details }}</p>
+
+    </div>
+    {% endfor %}
+    
+</section>
+<section class="btn">
+        <button><a href="/spot/create">Add a New Spot!</a></button>
+</section>
+
+
+{% endblock %}

@@ -53,8 +53,8 @@ def city_index(request):
 
 def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
-    spots = Spot.objects.all()
-    return render(request, 'city/detail.html', {'spots': spots}, {'city': city})
+    bucketlists = city.bucketlist_set.all()
+    return render(request, 'city/detail.html', {'bucketlists': bucketlists, 'city': city})
 
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
@@ -65,14 +65,24 @@ def spots_detail(request, spot_id):
 def bucketlist(request, bucketlist_id):
     bucket = Bucketlist.objects.get(id=bucketlist_id)
     city = City.objects.all()
-    return render(request, 'bucketlist.html', {'bucket': bucket}, {'city': city})
+    return render(request, 'bucketlist.html', {'bucket': bucket, 'city': city})
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    bucketlists = Bucketlist.objects.filter(user=user)
-    return render(request, 'profile.html',{'username': username}, {'bucketlists': bucketlists})
+    return render(request, 'profile.html')
 
 class SpotCreate(CreateView):
     model = Spot
     fields = '__all__'
-    success_url = '/city'
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save()
+        bucketlist = Bucketlist.objects.filter(user=self.request.user, city_id=self.kwargs['pk'])
+        if len(bucketlist):
+            bucketlist = bucketlist[0]
+        else:
+            bucketlist = Bucketlist(city_id=self.kwargs['pk'], user=self.request.user)
+            bucketlist.save()
+        bs = BucketSpot(bucket=bucketlist, spot=self.object) 
+        bs.save()
+        return redirect(f"/city/{self.kwargs['pk']}")
+

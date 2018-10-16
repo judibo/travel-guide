@@ -2,23 +2,26 @@
 {% block content %}
 
 <section class="slide">
-    <h1>{{ city_id.name }}</h1>
-    <p>{{ city_id.state }}, {{ city_id.country }}</p>
-    <img src="https://picsum.photos/1200/300">
+    <h2>{{ city.name }}</h2>
+    <p>{{ city.state }}, {{ city.country }}</p>
+    <img src="https://picsum.photos/1200/200">
 </section>
 <section class="flex-container">
-    {% for spot in spots %}
-    <div class="col-3">
-        <a href="{% url 'spots_detail' spot.id %}"><img src="https://placem.at/places?h=220&w=220"></a>
-        <h2>{{ spot.name }}</h2>
-        <p>{{ spot.details }}</p>
+    {% for bucketlist in bucketlists %}
+        {% for spot in bucketlist.spots.all %}
+            <div class="col-3">
+                <a href="{% url 'spots_detail' spot.id %}">
+                    <h2>{{ spot.name }}</h2>
+                    <p>{{ spot.details }}</p>
+                </a>
 
-    </div>
+            </div>
+        {% endfor %}
     {% endfor %}
     
 </section>
 <section class="btn">
-        <button><a href="/spot/create">Add a New Spot!</a></button>
+        <button><a href="{% url 'add_spot' city.id %}">Add a New Spot!</a></button>
 </section>
 
 

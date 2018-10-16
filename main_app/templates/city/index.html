@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Select the city you wanna go</h1>
-
 <section class="flex-container">
     {% for city in cities %}
     <div class="col-3">
         <a href="{% url 'city_detail' city.id %}">
-            <img src="https://placem.at/places?h=220&w=220">
+            <!-- <img src="https://placem.at/places?h=220&w=220"> -->
             <h2>{{ city.name }}</h2>
             <p>{{ city.state }}, {{ city.country }}</p>
         </a>

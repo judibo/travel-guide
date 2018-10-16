@@ -86,3 +86,8 @@ class SpotCreate(CreateView):
         bs.save()
         return redirect(f"/city/{self.kwargs['pk']}")
 
+
+class CityCreate(CreateView):
+    model = City
+    fields = '__all__'
+    success_url = '/city'

@@ -3,41 +3,50 @@ body {
     padding: 0;
     font-family: 'Raleway', sans-serif;
 }
+
 header {
     background-color: black;
     height: 50px;
     color: white;
 }
 
-.slide h1{
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.8;
-    padding: 20px;
-    color: black;
-    font-size: 25px;
-    font-weight: 100;
-    width: 100%;
+.slide {
+    position: relative;
+    text-align: center;
 }
-.slide h2 {
+
+.slide h1, .slide h2, .slide h3, .slide p {
     position: absolute;
-    top: 25%;
-    left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.8;
+    font-weight: 100;
+    left: 50%;
     width: 100%;
+    padding: 20px;
+}
+
+.slide > p > img {
+    width: 13px;
+}
+
+.slide h1{
+    top: 40%;    
+    font-size: 25px;
+}
+
+.slide h2 {
+    top: 10%;
     font-size: 30px;
 }
 
+.slide h3 {
+    top: 40%;
+    font-size: 18px;
+}
+
 .slide p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.8;
-    width: 100%;
+    top: 65%;
+    font-size: 12px;
 }
 
 .slide img {
@@ -45,11 +54,12 @@ header {
     margin-top: -11px;
 }
 
-ul {
+nav ul {
     display: inline-flex;
     list-style-type: none;
 }
-li {
+
+nav li {
     padding: 0 10px;
 }
 
@@ -73,16 +83,17 @@ a {
     color: black;
 }
 
-.slide {
-    position: relative;
-    text-align: center;
-    color: black;
-}
-
 .flex-container {
-    text-align: center;
     font-size: 15px;
     padding-left: 20px;
+}
+
+.flex-container h2 {
+    width: 100%;
+}
+
+.flex-container img {
+    width: 90%;
 }
 
 .col-3 {
@@ -107,97 +118,128 @@ footer {
     bottom: 0;
 }
 
-.login {
-    text-align: center;
-}
-
-.signup {
-    text-align: center;
-}
-
-.helptext, .signup li {
-    display: none;
-}
-
-img {
-    width: 90%;
-}
-
 .btn {
-    height: 100px;
     text-align: center;
+    padding: 20px;
+    margin-bottom: 40px;
 }
 
-button {
+span {
+    font-size: 80px;
+}
+input[type=submit] {
     border: 2px solid black;
     height: 40px;
     width: 200px;
     font-size: 16px;
 }
 
-button:hover {
-   background-color: lightgray;
+button {
+    border: 2px solid black;
+    height: 242px;
+    width: 242px;
+    font-size: 16px;
+    margin: 10px;
+}
+
+button:hover, input[type=submit]:hover {
+   background-color: black;
+   color: white;
+}
+
+table {
+    margin: auto;
+    text-align: left;
+}
+
+form {
+    text-align: center;
 }
 
 .spot {
     display: flex;
     width: 100%;
 }
+
 .spot-img img {
     width: 300px;
     display: inline-block;
     padding: 20px;
 }
+
 .spot-details{
     padding-left: 30px;
 }
+
+.city-detail .img-info img {
+    width: 13px;
+}
+
+.city-detail {
+    top: 64%;
+    left: 50%;
+}
+h1 {
+    text-align: center;
+}
+
 @media screen and (min-width: 540px) {
     .flex-container {
         display: flex;
-        justify-content: space-evenly;
         flex-wrap: wrap;
         flex-flow: row wrap;
         padding-left: 40px;
     }
 
     .col-3 {
-        width: 50%;
+        width: 45%;
         display: inline-block;
         text-align: left;
         margin: 0;
+        padding: 10px
     }
+    
     .slide h1{
         font-size: 40px;
     }
+
     .slide h2 {
-        font-size: 40px;
-        top: 15%;
-        left: 50%;
+        top: 10%;
+        font-size: 35px;
+    }
+
+    .slide h3 {
+        top: 35%;
+        font-size: 18px;
     }
     
     .slide p {
-        font-size: 20px;
-        top: 45%;
-        left: 50%;
+        top: 55%;
+        font-size: 15px;
     }
 }
 
 @media screen and (min-width: 1080px) {
     .col-3 {
-        width: 24%;
+        width: 23%;
+        padding: 10px;
     }
+
     .slide h1{
         font-size: 55px;
     }
+    
     .slide h2 {
-        font-size: 45px;
-        top: 25%;
-        left: 50%;
+        font-size: 55px;
+        top: 20%;
     }
     
+    .slide h3 {
+        top: 55%;
+    }
+
     .slide p {
-        font-size: 20px;
-        top: 50%;
-        left: 50%;
+        font-size: 15px;
+        top: 70%;
     }
 }

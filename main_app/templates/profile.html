@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Hello, {{ user.username }}</h1>
+<h1>Hello, {{ user.username }}!</h1>
 <section class="flex-container">
 {% for bucketlist in user.bucketlist_set.all %}
     <div class="col-3">

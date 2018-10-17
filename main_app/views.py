@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .forms import LoginForm
+from .forms import LoginForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Spot, City, Bucketlist, BucketSpot
-from django.views.generic.edit import CreateView
+from .models import Spot, City, Bucketlist, BucketSpot, Comment
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
 def index(request):
@@ -54,18 +54,19 @@ def city_index(request):
 def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
     bucketlists = city.bucketlist_set.all()
+    # spots = Spot.bucketlists.spots.distinct()
     return render(request, 'city/detail.html', {'bucketlists': bucketlists, 'city': city})
 
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
     bucketspots = spot.bucketspot_set.all()
+    comment_form = CommentForm()
     city = spot.bucketspot_set.first().bucket.city.name 
-    return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspots': bucketspots})
+    return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspots': bucketspots, 'comment_form': comment_form, 'current_user': request.user})
 
 def bucketlist(request, bucketlist_id):
     bucket = Bucketlist.objects.get(id=bucketlist_id)
-    city = City.objects.all()
-    return render(request, 'bucketlist.html', {'bucket': bucket, 'city': city})
+    return render(request, 'bucketlist.html', {'bucket': bucket })
 
 def profile(request, username):
     user = User.objects.get(username=username)
@@ -86,8 +87,45 @@ class SpotCreate(CreateView):
         bs.save()
         return redirect(f"/city/{self.kwargs['pk']}")
 
+def add_spot_bucket(request, spot_id):
+    spot = Spot.objects.get(id=spot_id)
+    city = spot.bucketspot_set.first().bucket.city
+    bucketlist, created = Bucketlist.objects.get_or_create(user=request.user, city=city)
+    bucketspot = BucketSpot(bucket=bucketlist, spot=spot)
+    bucketspot.save()
+    return redirect(f"/bucketlist/{bucketlist.id}")
 
 class CityCreate(CreateView):
     model = City
     fields = '__all__'
     success_url = '/city'
+   
+def add_comment(request, spot_id):
+   form = CommentForm(request.POST)
+   if form.is_valid():
+       new_comment = form.save(commit=False)
+       new_comment.user = request.user
+       new_comment.spot_id = spot_id
+       new_comment.save()
+   return redirect('spots_detail', spot_id=spot_id)
+
+class CommentUpdate(UpdateView):
+    model = Comment
+    fields = ['content']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+        return redirect(f"/spot/{self.object.spot_id}")
+
+
+class CommentDelete(DeleteView):
+   model = Comment
+   def post(self, request, *args, **kwargs):
+       comment = self.get_object()
+       spot_id = comment.spot_id
+       comment.delete()
+       return redirect(f"/spot/{spot_id}")
+
+
+

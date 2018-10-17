@@ -12,31 +12,39 @@
                 <p>City: {{ city }}</p>                
             </div>
         </div>
-        <button class="btn"><a href="/bucketlist">Add to Bucketlist!</a></button>
+        {% for spot in bucket %}
+        <p>Go do it</p>
+        {%empty%}
+        <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
+        {% endfor %}
     </section>
 </section>
+
+
+<section class="comment">
+    {% for comment in spot.comment_set.all %}
+        <p>{{comment.user}}: {{comment.content}}</p>
+        {% if current_user == comment.user %}
+        <div>
+        <a href="{% url 'comment_update' comment.id %}">Edit</a>
+        <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <form action="{% url 'add_comment' spot.id %}" method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" class="btn" value="Comment">
+    </form>
+</section>
+
 {% for bucketspot in bucketspots %}
 <section class="flex-container">
     <div class="col-3">
-    
-        <img src="https://i.imgur.com/X8xJ6w5.jpg">
-        <h3>{{ bucketspot.bucket.user.username }}</h3>
-    </div>
-    <div class="col-3">
-
-        <img src="https://i.imgur.com/X8xJ6w5.jpg">
-        <h3>{{ bucketspot.bucket.user.username }}</h3>
-    </div>
-    <div class="col-3">
-
-        <img src="https://i.imgur.com/X8xJ6w5.jpg">
-        <h3>{{ bucketspot.bucket.user.username }}</h3>
-    </div>
-    <div class="col-3">
-
         <img src="https://i.imgur.com/X8xJ6w5.jpg">
         <h3>{{ bucketspot.bucket.user.username }}</h3>
     </div>
 </section>
-{% endfor%}
+{% endfor %}
+
 {% endblock %}

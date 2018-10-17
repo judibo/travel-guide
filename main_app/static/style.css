@@ -124,9 +124,6 @@ footer {
     margin-bottom: 40px;
 }
 
-span {
-    font-size: 80px;
-}
 input[type=submit] {
     border: 2px solid black;
     height: 40px;
@@ -142,6 +139,11 @@ button {
     margin: 10px;
 }
 
+.spot button, button[type=submit] {
+    height: 40px;
+    width:200px;
+}
+
 button:hover, input[type=submit]:hover {
    background-color: black;
    color: white;
@@ -150,10 +152,6 @@ button:hover, input[type=submit]:hover {
 table {
     margin: auto;
     text-align: left;
-}
-
-form {
-    text-align: center;
 }
 
 .spot {
@@ -179,8 +177,25 @@ form {
     top: 64%;
     left: 50%;
 }
+
 h1 {
     text-align: center;
+}
+.form h2 {
+    text-align: center;
+}
+
+.signup, .login {
+    margin: auto;
+    width: 500px;
+    text-align: center;
+}
+.signup ul, .helptext {
+    font-size: 12px;
+    text-align: left;
+}
+.signup input {
+    width: 360px;
 }
 
 @media screen and (min-width: 540px) {

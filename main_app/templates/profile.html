@@ -11,6 +11,9 @@
             <p>{{ bucketlist.spots.count }} places to visit</p>
         </a>
     </div>
+{% empty %}
+    <p>You don't have a Bucketlist... Go create one!</p>
+
 {% endfor %}
 </section>
 

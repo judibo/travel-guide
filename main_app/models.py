@@ -45,3 +45,10 @@ class BucketSpot(models.Model):
 
     def __str__(self):
         return self.spot.name
+
+class Comment(models.Model):
+    content = models.TextField('Comment', max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    spot = models.ForeignKey(Spot, on_delete=models.CASCADE)
+    def __str__(self):
+       return f'Commment: {self.content}'

@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ bucketlist.city.name }}</h1>
+<h1>{{ city.name }}</h1>
 <p>{{ user.username }}</p>
-<h1>{{ spot.name }}</h1>
-<p>{{ spot.details }}</p>
+
+<section class="flex-container">
+    {% for spot in bucketlist %}
+        <div class="col-3">
+            <a href="{% url 'spots_detail' spot.id %}">
+                <h2>{{ spot.name }}</h2>
+                <p>{{ spot.details }}</p>
+            </a>
+        </div>
+    {% endfor %}
+</section>
 
 {% endblock %}

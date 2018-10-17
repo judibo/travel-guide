@@ -65,8 +65,8 @@ def spots_detail(request, spot_id):
     return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspots': bucketspots, 'comment_form': comment_form, 'current_user': request.user})
 
 def bucketlist(request, bucketlist_id):
-    bucket = Bucketlist.objects.get(id=bucketlist_id)
-    return render(request, 'bucketlist.html', {'bucket': bucket })
+    bucketlist = Bucketlist.objects.get(id=bucketlist_id)
+    return render(request, 'bucketlist.html', {'bucketlist': bucketlist })
 
 def profile(request, username):
     user = User.objects.get(username=username)

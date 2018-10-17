@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>{{ city.name }}</h1>
-<p>{{ user.username }}</p>
-
+<section class="slide">
+    <h2>{{ bucketlist.city.name }}</h2>
+    <h3>{{ bucketlist.user }} | {{ bucketlist.created_at }}</h3>
+    <p>{{ bucketlist.spots.count }} places to visit</p>
+    <img src="https://picsum.photos/1200/200">
+</section>
 <section class="flex-container">
-    {% for spot in bucketlist %}
+    {% for spot in bucketlist.spots.all %}
         <div class="col-3">
             <a href="{% url 'spots_detail' spot.id %}">
                 <h2>{{ spot.name }}</h2>
@@ -14,5 +16,4 @@
         </div>
     {% endfor %}
 </section>
-
 {% endblock %}

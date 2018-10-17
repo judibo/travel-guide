@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Form, CharField, PasswordInput
-from .models import Comment
+from .models import Comment, BucketSpot
 
 class LoginForm(Form):
     username = CharField(label="User Name", max_length=64)

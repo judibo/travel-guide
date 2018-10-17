@@ -6,21 +6,19 @@
     </section>
     <section class="spot-details">
         <h2>{{ spot.name }}</h2>
+        <p>Where? {{ city }}</p>                
         <div>
             <div>
-                <p>{{ spot.details }}</p>
-                <p>City: {{ city }}</p>                
+                <p>What? {{ spot.details }}</p>
             </div>
         </div>
-        {% for spot in bucket %}
-        <p>Go do it</p>
-        {%empty%}
-        <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
+        {% for spot in bucketspots.bucketlist %}
+            <td><input type="checkbox" name="" value="{{ done }}"></td>
+        {% empty %}
+            <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
         {% endfor %}
     </section>
 </section>
-
-
 <section class="comment">
     {% for comment in spot.comment_set.all %}
         <p>{{comment.user}}: {{comment.content}}</p>
@@ -38,13 +36,13 @@
     </form>
 </section>
 
-{% for bucketspot in bucketspots %}
 <section class="flex-container">
     <div class="col-3">
-        <img src="https://i.imgur.com/X8xJ6w5.jpg">
-        <h3>{{ bucketspot.bucket.user.username }}</h3>
+        <h3>Who wants to go there:</h3>
+        {% for bucketspot in bucketspots %}
+            <a href="{% url 'profile' bucketspot.bucket.user %}"><p>{{ bucketspot.bucket.user.username }}</p></a>
+        {% endfor %}
     </div>
 </section>
-{% endfor %}
 
 {% endblock %}

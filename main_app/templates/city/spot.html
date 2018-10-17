@@ -10,10 +10,10 @@
     <div class="spot-details">
         <h2>{{ spot.name }}</h2>
         <p>{{ spot.details }}</p>
-        <input type="checkbox" name="" value="{{ check_done }}" label="Have Been!">
 
-        {% for spot in user.bucketlist %}
-        <input type="checkbox" name="" value="{{ check_done }}">
+        {% for spot in user.bucketlist_set.all %}
+            <p>hello</p>
+            <input type="checkbox" name="" value="{{ check_done }}">
         {% empty %}
             <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
         {% endfor %}

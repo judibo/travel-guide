@@ -127,14 +127,7 @@ class CommentDelete(DeleteView):
        return redirect(f"/spot/{spot_id}")
 
 
-def check_done(request, spot_id):
-    if request.method == 'POST':
-        form = CheckDone(request.POST)
-        if form.is_valid():
-            result = "valid"
-        else:
-            result = "not valid"
-    else:
-        form = CheckDone()
-        result = "no post"
+def check_done(request, spot_id,):
+    done = BucketSpot(done=True)
+    done.save()
     return redirect('spots_detail', spot_id=spot_id)

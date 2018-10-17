@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
+<section class="breadcrumb">
+        <p>{{ city }}</p>
+</section>
 <section class="spot">
-    <section class="spot-img">
-        <img src="https://placem.at/places?h=220&w=220">
-    </section>
-    <section class="spot-details">
+    <div class="spot-img">
+        <img src="https://placem.at/places?h=600&w=600">
+    </div>
+    <div class="spot-details">
         <h2>{{ spot.name }}</h2>
-        <p>Where? {{ city }}</p>                
-        <div>
-            <div>
-                <p>What? {{ spot.details }}</p>
-            </div>
-        </div>
-        {% for spot in bucketspots.bucketlist %}
-            <td><input type="checkbox" name="" value="{{ done }}"></td>
+        <p>{{ spot.details }}</p>
+        <input type="checkbox" name="" value="{{ check_done }}" label="Have Been!">
+
+        {% for spot in user.bucketlist %}
+        <input type="checkbox" name="" value="{{ check_done }}">
         {% empty %}
             <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
         {% endfor %}
-    </section>
+    </div>
 </section>
-<section class="comment">
-    {% for comment in spot.comment_set.all %}
-        <p>{{comment.user}}: {{comment.content}}</p>
-        {% if current_user == comment.user %}
-        <div>
-        <a href="{% url 'comment_update' comment.id %}">Edit</a>
-        <a href="{% url 'comment_delete' comment.id %}">Delete</a>
-        </div>
-        {% endif %}
-    {% endfor %}
-    <form action="{% url 'add_comment' spot.id %}" method="POST">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <input type="submit" class="btn" value="Comment">
-    </form>
-</section>
-
-<section class="flex-container">
-    <div class="col-3">
+<section class="spot">
+    <div class="comment">
+        <h3>Comments:</h3>
+        {% for comment in spot.comment_set.all %}
+            <p>{{comment.user}}: {{comment.content}}</p>
+            {% if current_user == comment.user %}
+            <div>
+                <a href="{% url 'comment_update' comment.id %}">Edit</a>
+                <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <form action="{% url 'add_comment' spot.id %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <input type="submit" class="btn" value="Comment">
+        </form>
+    </div>
+    <div>
         <h3>Who wants to go there:</h3>
         {% for bucketspot in bucketspots %}
             <a href="{% url 'profile' bucketspot.bucket.user %}"><p>{{ bucketspot.bucket.user.username }}</p></a>

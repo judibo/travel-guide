@@ -1,22 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<section class="slide">
+<section class="banner">
     <h2>{{ city.name }}</h2>
     <h3>{{ city.state }}, {{ city.country }} </h3>
     <p><img src="https://i.imgur.com/hzVlg93.png" alt="language"> {{ city.language }}  |  <img src="https://i.imgur.com/Tv8V0NO.png" alt="Currency">{{ city.currency }}</p>
     <img src="https://picsum.photos/1200/200">
 </section>
 <section class="flex-container">
-    {% for bucketlist in bucketlists %}
-        {% for spot in bucketlist.spots.all %}
-            <div class="col-3">
-                <a href="{% url 'spots_detail' spot.id %}">
-                    <h2>{{ spot.name }}</h2>
-                    <p>{{ spot.details }}</p>
-                </a>
-            </div>
-        {% endfor %}
+    {% for spot in spots %}
+        <div class="col-3">
+            <a href="{% url 'spots_detail' spot.id %}">
+                <h2>{{ spot.name }}</h2>
+                <p>{{ spot.details }}</p>
+            </a>
+        </div>
     {% endfor %}
     
     <a href="{% url 'add_spot' city.id %}"><button>Add a New Spot!</button></a>

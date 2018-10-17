@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Form, CharField, PasswordInput
+from django.forms import ModelForm, Form, CharField, PasswordInput, BooleanField
 from .models import Comment, BucketSpot
 
 class LoginForm(Form):
@@ -9,3 +9,11 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+
+
+class CheckDone(ModelForm):
+    done = BooleanField()
+
+    class Meta:
+        model = BucketSpot
+        fields = ['done']

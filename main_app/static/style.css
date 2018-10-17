@@ -33,7 +33,6 @@ nav li {
     width: 165px;
 }
 
-
 a {
     text-decoration: none;
     color: black;
@@ -55,31 +54,58 @@ a {
     padding: 20px;
 }
 
-.slide > p > img {
-    width: 13px;
-}
-
 .slide h1{
-    top: 40%;    
-    font-size: 25px;
-}
-
-.slide h2 {
-    top: 10%;
+    top: 20%;
     font-size: 30px;
 }
 
 .slide h3 {
+    top: 52%;
+    font-size: 18px;
+    width: 80%;
+}
+
+.banner {
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.banner h1, .banner h2, .banner h3, .banner p {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    font-weight: 100;
+    left: 50%;
+    width: 100%;
+    padding: 20px;
+}
+
+.banner > p > img {
+    width: 13px;
+}
+
+.banner h1{
+    top: 40%;    
+    font-size: 25px;
+}
+
+.banner h2 {
+    top: 10%;
+    font-size: 30px;
+}
+
+.banner h3 {
     top: 40%;
     font-size: 18px;
 }
 
-.slide p {
+.banner p {
     top: 65%;
     font-size: 12px;
 }
 
-.slide img {
+.banner img, .slide img {
     width: 100%;
 }
 
@@ -126,7 +152,7 @@ footer {
 
 input[type=submit] {
     border: 2px solid black;
-    height: 40px;
+    height: 30px;
     width: 200px;
     font-size: 16px;
 }
@@ -154,19 +180,30 @@ table {
     text-align: left;
 }
 
+.breadcrumb-city {
+   padding-left: 20px; 
+}
+
 .spot {
     display: flex;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .spot-img img {
-    width: 300px;
+    width: 500px;
     display: inline-block;
-    padding: 20px;
+    padding-left: 20px;
 }
 
 .spot-details{
     padding-left: 30px;
+    width: 50%;
+}
+
+.comment {
+    padding-left: 20px;
+    width: 40%;
 }
 
 .city-detail .img-info img {
@@ -205,6 +242,15 @@ h1 {
     .nav-mobile {
         display: none;
     }
+    .slide h1{
+        top: 40%;    
+        font-size: 40px;
+    }
+    .slide h3 {
+        top: 52%;
+        font-size: 18px;
+        width: 100%;
+    }
     .flex-container {
         display: flex;
         flex-wrap: wrap;
@@ -220,21 +266,21 @@ h1 {
         padding: 10px
     }
     
-    .slide h1{
+    .banner h1{
         font-size: 40px;
     }
 
-    .slide h2 {
+    .banner h2 {
         top: 10%;
         font-size: 35px;
     }
 
-    .slide h3 {
+    .banner h3 {
         top: 35%;
         font-size: 18px;
     }
     
-    .slide p {
+    .banner p {
         top: 55%;
         font-size: 15px;
     }
@@ -246,20 +292,20 @@ h1 {
         padding: 10px;
     }
 
-    .slide h1{
+    .banner h1{
         font-size: 55px;
     }
     
-    .slide h2 {
+    .banner h2 {
         font-size: 55px;
         top: 20%;
     }
     
-    .slide h3 {
+    .banner h3 {
         top: 55%;
     }
 
-    .slide p {
+    .banner p {
         font-size: 15px;
         top: 70%;
     }

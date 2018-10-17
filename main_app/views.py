@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .forms import LoginForm, CommentForm
+from .forms import LoginForm, CommentForm, CheckDone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -53,9 +53,8 @@ def city_index(request):
 
 def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
-    bucketlists = city.bucketlist_set.all()
-    # spots = Spot.bucketlists.spots.distinct()
-    return render(request, 'city/detail.html', {'bucketlists': bucketlists, 'city': city})
+    spots = Spot.objects.filter(bucketspot__bucket__city=city).values('id', 'name', 'details', 'genre').distinct()
+    return render(request, 'city/detail.html', {'city': city, 'spots': spots})
 
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
@@ -128,4 +127,14 @@ class CommentDelete(DeleteView):
        return redirect(f"/spot/{spot_id}")
 
 
-
+def check_done(request, spot_id):
+    if request.method == 'POST':
+        form = CheckDone(request.POST)
+        if form.is_valid():
+            result = "valid"
+        else:
+            result = "not valid"
+    else:
+        form = CheckDone()
+        result = "no post"
+    return redirect('spots_detail', spot_id=spot_id)

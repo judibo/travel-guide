@@ -9,10 +9,11 @@
 <section class="flex-container">
 {% for bucketlist in user.bucketlist_set.all %}
     <div class="col-3">
+        <a href="{% url 'bucketlist' bucketlist.id %}">
             <h2>{{ bucketlist.city.name }}</h2>
             <p>{{ bucketlist.spots.count }} places to visit</p>
-            <!-- <p>{{ bucketlist.spots.all }} places to visit</p> -->
-            <a href="{% url 'bucketlist' bucketlist.id %}"><p>See spots &rarr;</p></a>
+            <p>Go to bucketlist &rarr;</p>
+        </a>
     </div>
 {% empty %}
     <p>You don't have a Bucketlist... Go create one!</p>

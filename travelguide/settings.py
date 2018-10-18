@@ -125,6 +125,8 @@ USE_TZ = True
 
 # STATIC_URL = '/static/'
 
+LOGIN_URL = '/login/'
+
 django_heroku.settings(locals())
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 

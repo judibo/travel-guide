@@ -152,6 +152,9 @@ table, .photo form, .comment form {
     margin: auto;
     text-align: left;
 }
+.comment {
+    width: 45%;
+}
 .breadcrumb {
    padding-left: 20px; 
 }
@@ -181,8 +184,11 @@ table, .photo form, .comment form {
     text-decoration: line-through;
 }
 .photo {
-    width: 50%;
+    width: 530px;
     padding-left: 20px;
+}
+.photo img {
+    max-width: 200px;
 }
 
 h1, .form h2, form {

@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Spot, City, Bucketlist, BucketSpot, Comment, Photo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 import uuid
 import boto3
@@ -78,6 +80,7 @@ def profile(request, username):
     user = User.objects.get(username=username)
     return render(request, 'profile.html')
 
+@method_decorator(login_required, name='dispatch')
 class SpotCreate(CreateView):
     model = Spot
     fields = '__all__'
@@ -118,6 +121,7 @@ def check_done(request, bucketspot_id):
     bs.save()
     return redirect('spots_detail', spot_id=bs.spot.id)
 
+@method_decorator(login_required, name='dispatch')
 class CityCreate(CreateView):
     model = City
     fields = '__all__'

@@ -122,7 +122,6 @@ class CityCreate(CreateView):
     model = City
     fields = '__all__'
     success_url = '/city'
-    
    
 def add_comment(request, spot_id):
    form = CommentForm(request.POST)

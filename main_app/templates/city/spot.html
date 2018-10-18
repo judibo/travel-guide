@@ -5,7 +5,9 @@
 </section>
 <section class="spot">
     <div class="spot-img">
-        <img src="https://placem.at/places?h=600&w=600">
+        {% for photo in spot.photo_set.all|slice:"1" %}
+            <img src="{{ photo.url }}">
+        {% endfor %}
     </div>
     <div class="spot-details">
         <h2>{{ spot.name }}</h2>
@@ -25,10 +27,11 @@
 </section>
 <section class="spot">
     <div class="photo">
+        <h3>Photos:</h3>
         {% for photo in spot.photo_set.all %}
         <img src="{{photo.url}}">
         {% empty %}
-        <div>No Photos Uploaded</div>
+        <p>No Photos Uploaded</p>
         {% endfor %}
         <form action="{% url 'add_photo' spot.id %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}

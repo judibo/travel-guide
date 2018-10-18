@@ -26,8 +26,13 @@ nav li {
 .nav-desk {
     display: none;
 }
+.logo {
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 14px;
+}
 .logo img {
-    width: 165px;
+    width: 130px;
 }
 a {
     text-decoration: none;
@@ -210,6 +215,9 @@ h1, .form h2, form {
 }
 
 @media screen and (min-width: 540px) {
+    .logo img {
+        width: 165px;
+    }
     .nav-desk {
         display: block;
     }

@@ -5,7 +5,7 @@ Create bucketlist of spots to visit in a city to keep track of what the user hav
 The user can add spots and cities to the app.
 
 ## Screenshot
- ![ScreenShot](img/wherenext.jpg)
+ ![ScreenShot](img/wherenextscreens.jpg)
 
 ## Technologies Used
  * HTML
@@ -15,10 +15,9 @@ The user can add spots and cities to the app.
 
  ## Links
  * [Trello](https://trello.com/b/uayxi3mD/travel-guide-bucketlist)
-* [Heroku](#) 
+* [Heroku](https://wherenextbucketlist.herokuapp.com/) 
 
 ## Future features (ice box)
- * Upload images to the Spot
  * Create a Map with the cities, showing where the user want to go or have been
  * Rate the spot (stars)
  * User be able to duplicate an existing bucketlist

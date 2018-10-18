@@ -16,6 +16,7 @@ urlpatterns = [
     path('spot/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),
     path('spot/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
     path('spot/<int:spot_id>/add', views.add_spot_bucket, name='add_spot_bucket'),
-    path('spot/<int:spot_id>/check_done', views.check_done, name='check_done'),
+    path('spot/<int:spot_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('bucketspot/<int:bucketspot_id>/check_done', views.check_done, name='check_done'),
     path('bucketlist/<int:bucketlist_id>/', views.bucketlist, name='bucketlist'),
 ]

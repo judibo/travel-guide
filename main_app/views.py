@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .forms import LoginForm, CommentForm, CheckDone
+from .forms import LoginForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Spot, City, Bucketlist, BucketSpot, Comment
+from .models import Spot, City, Bucketlist, BucketSpot, Comment, Photo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+import uuid
+import boto3
+
+# Constants
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'wherenext'
 
 # Create your views here.
 def index(request):
@@ -58,10 +65,10 @@ def city_detail(request, city_id):
 
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
-    bucketspots = spot.bucketspot_set.all()
+    bucketspot = BucketSpot.objects.filter(bucket__user=request.user, spot=spot).first()
     comment_form = CommentForm()
-    city = spot.bucketspot_set.first().bucket.city.name 
-    return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspots': bucketspots, 'comment_form': comment_form, 'current_user': request.user})
+    city = spot.bucketspot_set.first().bucket.city.name
+    return render(request, 'city/spot.html', {'spot': spot, 'city': city, 'bucketspot': bucketspot, 'comment_form': comment_form, 'current_user': request.user})
 
 def bucketlist(request, bucketlist_id):
     bucketlist = Bucketlist.objects.get(id=bucketlist_id)
@@ -84,6 +91,17 @@ class SpotCreate(CreateView):
             bucketlist.save()
         bs = BucketSpot(bucket=bucketlist, spot=self.object) 
         bs.save()
+        photo_file = self.request.FILES.get('photo-file', None)
+        if photo_file:
+            s3 = boto3.client('s3')
+            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            try:
+                s3.upload_fileobj(photo_file, BUCKET, key)
+                url = f"{S3_BASE_URL}{BUCKET}/{key}"
+                photo = Photo(url=url, spot=self.object)
+                photo.save()
+            except:
+                print('An error occurred uploading file to S3')
         return redirect(f"/city/{self.kwargs['pk']}")
 
 def add_spot_bucket(request, spot_id):
@@ -94,10 +112,17 @@ def add_spot_bucket(request, spot_id):
     bucketspot.save()
     return redirect(f"/bucketlist/{bucketlist.id}")
 
+def check_done(request, bucketspot_id):
+    bs = BucketSpot.objects.get(id=bucketspot_id)
+    bs.done = True
+    bs.save()
+    return redirect('spots_detail', spot_id=bs.spot.id)
+
 class CityCreate(CreateView):
     model = City
     fields = '__all__'
     success_url = '/city'
+    
    
 def add_comment(request, spot_id):
    form = CommentForm(request.POST)
@@ -117,7 +142,6 @@ class CommentUpdate(UpdateView):
         self.object.save()
         return redirect(f"/spot/{self.object.spot_id}")
 
-
 class CommentDelete(DeleteView):
    model = Comment
    def post(self, request, *args, **kwargs):
@@ -126,8 +150,16 @@ class CommentDelete(DeleteView):
        comment.delete()
        return redirect(f"/spot/{spot_id}")
 
-
-def check_done(request, spot_id,):
-    done = BucketSpot(done=True)
-    done.save()
+def add_photo(request, spot_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            photo = Photo(url=url, spot_id=spot_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
     return redirect('spots_detail', spot_id=spot_id)

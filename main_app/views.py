@@ -65,6 +65,7 @@ def city_detail(request, city_id):
     spots = Spot.objects.filter(bucketspot__bucket__city=city).values('id', 'name', 'details', 'genre').distinct()
     return render(request, 'city/detail.html', {'city': city, 'spots': spots})
 
+@login_required
 def spots_detail(request, spot_id):
     spot = Spot.objects.get(id=spot_id)
     bucketspot = BucketSpot.objects.filter(bucket__user=request.user, spot=spot).first()

@@ -164,7 +164,8 @@ table, .photo form, .comment form {
     flex-wrap: wrap;
 }
 .spot-img img {
-    width: 500px;
+    width: 300px;
+    max-height: 300px;
     display: inline-block;
     padding-left: 20px;
 }
@@ -189,6 +190,7 @@ table, .photo form, .comment form {
 }
 .photo img {
     max-width: 200px;
+    max-height: 200px;
 }
 
 h1, .form h2, form {
@@ -250,6 +252,12 @@ h1, .form h2, form {
     .banner p {
         top: 55%;
         font-size: 15px;
+    }
+    .spot-img img {
+        width: 500px;
+        max-height: 500px;
+        display: inline-block;
+        padding-left: 20px;
     }
 }
 @media screen and (min-width: 1080px) {

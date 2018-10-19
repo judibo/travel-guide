@@ -12,7 +12,6 @@
     <div class="spot-details">
         <h2>{{ spot.name }}</h2>
         <p>{{ spot.details }}</p>
-
         {% if bucketspot %}
             {% if bucketspot.done == True %}
                 <p id="checked">&#9726 Completed!</p>
@@ -22,7 +21,6 @@
         {% else %}
             <a href="{% url 'add_spot_bucket' spot.id %}"><button class="btn-spot">Add to Bucketlist!</button></a>
         {% endif %}
-
     </div>
 </section>
 <section class="spot">
